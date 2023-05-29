@@ -1,0 +1,70 @@
+WEBVTT
+
+00:01.100 --> 00:06.814
+In this video, we'll show you how to secure your upstream API use the JWT plugin.
+
+00:08.500 --> 00:16.231
+First, let's create a service which is point to an echo upstream API. I'm using a public HTTP Request & Response Service, called httpbin. I
+
+00:16.431 --> 00:24.163
+set the sub path to /anything so the response will be the same of my request.
+
+00:25.380 --> 00:29.910
+Next, create a route for this service so we can access it from outside. I will set the path to /demo so we can access this API with this
+
+00:30.110 --> 00:34.641
+path.
+
+00:38.220 --> 00:45.525
+Let's try to access the httpbin server using Kong Gateway. Send a request to port 8000 of the kong gateway instance, with a subpath /demo
+
+00:45.725 --> 00:53.031
+which we set in the route. We got a 200 response so our settings looks good.
+
+00:54.260 --> 01:01.059
+OK, let's enable the JWT Plugin on the service level. In this demo, we will keep all the default settings and click install. Please note
+
+01:01.259 --> 01:08.059
+the key claim name is ISS , we will use it when creating the token.
+
+01:09.259 --> 01:14.736
+Let's try to access the API again. We don't have a valid token so get blocked this time.
+
+01:15.979 --> 01:22.755
+Next, let's start to create a valid JWT token. First, create a consumer called Joe.
+
+01:23.979 --> 01:31.918
+Second, create a JWT credential for Joe. Leave the key and secret as blank and Kong will generate them for you. JWT plugins can use several
+
+01:32.118 --> 01:40.057
+algorithms to verify the token's signature. We will use the default HS256 in this demo.
+
+01:41.257 --> 01:46.655
+The secret is not shown in the GUI due the security reason. We can confirm it from the CLI, the admin API. We will use the key and the
+
+01:46.855 --> 01:52.253
+secret to create the token.
+
+01:53.499 --> 02:00.138
+You can also use your own credentials for the JWT plugin. Just input them in the key and secret field,
+
+02:03.338 --> 02:06.493
+and you can also see them via the Admin API.
+
+02:11.859 --> 02:19.148
+We can create the token in jwt.io. Add a new field called iss in the payload section, with the value of the key. Then input the secret in
+
+02:19.348 --> 02:26.637
+the verify signature section. You can get the token on the left side of the page.
+
+02:27.859 --> 02:32.747
+Let's access the API again with this token. Copy the token and add it in the authorization header as a Bearer token. You should be able to
+
+02:32.947 --> 02:37.835
+access successfully this time.
+
+02:39.035 --> 02:45.364
+As a conclusion, using jwt plugin can help you to protech your API very easy. It can help you to verify the JSON Web Token in different
+
+02:45.564 --> 02:51.893
+algorithms. Thanks for watching, see you next time.
